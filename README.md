@@ -178,7 +178,7 @@ Configuração dos testes: embeddinggemma, `phi4-mini` com `temperature` 0 e `nu
 - **Comentário:** 
   - Busca: suficiente. O trecho 08_cupons_e_promocoes_p1 ficou em 1º (0.414) e contém o mínimo de R$ 30,00 sobre o valor dos itens. A distância é maior que a do teste 3 (0.312), mas a distância só serve para ordenar os trechos de uma mesma consulta, e não para comparar perguntas diferentes nem como medida de certeza.
 
-  - Resposta: o valor está correto (R$ 30,00), mas perde o detalhe de que o mínimo vale para o valor dos itens do pedido. A fonte saiu malformada ("08_cupons_e_promocoes_md") e repetida duas vezes. A resposta é idêntica à da rodada 1, o que é esperado com temperature 0, embora o determinismo não seja garantido (ver Reprodutibilidade)”.
+  - Resposta: o valor está correto (R$ 30,00), mas perde o detalhe de que o mínimo vale para o valor dos itens do pedido. A fonte saiu malformada ("08_cupons_e_promocoes_md") e repetida duas vezes. A resposta é idêntica à da rodada 1, o que é esperado com temperature 0, embora o determinismo não seja garantido (ver Reprodutibilidade).
 
   - Problema em: geração (formato da citação e pequena perda de precisão).
 

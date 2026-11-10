@@ -251,12 +251,12 @@ O teste 6, no qual verificamos a resposta caso não tenha documentos na base, re
 
 Ao rodar o programa de novo em uma instalação limpa (ZIP extraído, ambiente virtual novo e base recriada), os trechos recuperados no teste 1 foram os mesmos, com distâncias que variaram só na terceira casa decimal (0,405 e 0,421 contra 0,406 e 0,422). A resposta, porém, variou: a quarta frase mudou e o modelo acrescentou “Não encontrei essa informação nos documentos.” depois de já ter respondido, misturando os dois caminhos do prompt. Isso mostra que temperature 0 reduz a variação, mas não garante respostas idênticas, e reforça que a geração é o ponto mais frágil do sistema.
 
-## 10. Uma dificuldade e uma melhoria
+## 10. Uma dificuldade e melhorias
 
 **Dificuldade encontrada:** 
 Entender como fazer a llm respeitar os limites, responder adequadamente e não ficar mesclando documentos sem necessidade. Não só mudanças no prompt, mas fatores como garantias de limite no código precisam estar favoráveis para que o modelo fique mais preciso.
 
-**Possível melhoria:** O código numera os trechos e manda para o modelo. O modelo, em vez de escrever o nome completo do arquivo (que é longo e ele costuma errar), só cita o número do trecho que usou. Depois, o código troca cada número pelo nome real do arquivo, que ele guardou. Assim o nome nunca depende da cópia do modelo. Isso resolve o problema das citações erradas (_md ou o arquivo.md literal), mas não garante que o modelo cite o trecho certo. Essa melhoria agora foi implementada.
+**Melhorias implementadas:** 
+Para evitar que o README fique extenso demais e mudando constantemente a cada melhoria, optei por desenvolver um documento novo chamado [MELHORIAS.md](MELHORIAS.md).
 
-**Melhorias implementadas pós entrega do trabalho:** 
-Para evitar que o README fique extenso demais e mudando constantemente a cada melhoria, optei por desenvolver um documento novo chamado MELHORIAS.md.
+Citação por número: os trechos enviados ao modelo são numerados ([1], [2], [3]) e o modelo cita só o número do trecho que usou. O código converte cada número no nome real do arquivo, guardado nos metadados, então o nome não depende do que o modelo escreve. Isso não garante que ele cite o trecho certo.

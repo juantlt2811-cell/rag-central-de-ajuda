@@ -1,8 +1,8 @@
 # Melhorias depois do TP
 
-Este documento registra as melhorias feitas no projeto depois da entrega do TP da Aula 07. A versão entregue está na tag `v1-tp` (commit `d5b6bd8`) e o README descreve essa versão. Cada melhoria abaixo segue a mesma estrutura: problema medido, mudança, resultado antes e depois, e o que não melhorou.
+Este documento registra as melhorias feitas no projeto depois da entrega do TP da Aula 07. A versão entregue está na tag `v1-tp` (commit `d5b6bd8`) e o README atual está sendo modificado conforme a implementação das melhorias. Cada melhoria abaixo segue a mesma estrutura: problema medido, mudança, resultado antes e depois, e o que não melhorou.
 
-Anotações dos tipos das variáveis e dos retorno das funções também foram adicionados
+Anotações dos tipos das variáveis e dos retornos das funções também foram adicionadas.
 
 ## v2: citação por número
 
@@ -14,7 +14,7 @@ Para quem vai procurar essas fontes, vê-las com esse erro de escrita prejudica 
 
 ### Ideia
 
-Agora o modelo não escreve o nome todo do documento, ele apenas anota de forma numérica qual documento ele utilizou. Quem ficou responsável por escrever o documento é o código, trocando o número que o modelo escreveu pelo nome guardado nos metadados
+Agora o modelo não escreve o nome todo do documento, ele apenas anota de forma numérica qual documento ele utilizou. Quem ficou responsável por escrever o documento é o código, trocando o número que o modelo escreveu pelo nome guardado nos metadados.
 
 ### O que mudou no código
 
@@ -43,7 +43,7 @@ Os testes 1, 2, 3, 5 e 6 foram feitos antes da deduplicação, enquanto que o te
 | 2 | Qual é a taxa de entrega? | A única fonte retornada já aparecia com .md | Nada mudou |
 | 3 | Eu ganho reembolso se a loja atrasar o meu pedido? | Mesmo caso do teste 1, onde pelo menos uma vinha com _md, se contradisse dizendo que a resposta não respondia diretamente a pergunta e passou o limite de três frases | Fontes aparecem bem formatadas e dessa vez não teve uma nota que cause contradição, porém o limite de três frases ainda está sendo passado |
 | 4 | Qual é o valor mínimo de um pedido para usar cupom? | Fontes vinham mal formadas e duplicadas | Na primeira execução já apresentava o formato certo, porém com fontes duplicadas. Já na segunda execução, apresentou formato certo e sem fontes duplicadas |
-| 5 | o restaurante desistiu do meu pedido, o que acontece com o dinheiro? | Formatação já era correta, além de estar no limite de três frases. O problema estava na incoerência com os documentos, dizendo que o restaurante reembolsa sendo que é a EntregaJá | Retornou cinco frases, ultrapassando o limite de três, sendo uma delas duplicada e uma de enchimento. Continua sem o aviso de 10 minutos e ainda mostra uma fonte errada junta ao texto do trecho 03_p2. Única melhoria na resposta, além dos documentos estarem formatados corretamente, foi o aviso de que o reembolso é feito automaticamente e não pelo restaurante |
+| 5 | o restaurante desistiu do meu pedido, o que acontece com o dinheiro? | Formatação já era correta, além de estar no limite de três frases. O problema estava na incoerência com os documentos, dizendo que o restaurante reembolsa sendo que é a EntregaJá | Retornou cinco frases, ultrapassando o limite de três, sendo uma delas duplicada e uma de enchimento. Continua sem o aviso de 10 minutos e ainda mostra uma citação do 04_p3 junta ao texto do trecho 03_p2. Única melhoria: deixou de dizer que o restaurante reembolsa (agora só diz que o reembolso é automático, sem citar quem paga; a EntregaJá não é mencionada). A informação de que o reembolso é automático já aparecia na v4. |
 | 6 | Qual é o telefone ou e-mail para falar com o atendimento? | Retornou corretamente que não tem a informação nas fontes | Retornou corretamente que não tem a informação nas fontes |
 
 ### O que melhorou
@@ -52,9 +52,7 @@ Agora todos os testes que possuem citações (1 a 5) mostraram que as fontes for
 
 ### O que não melhorou
 
-De forma geral, o limite de três frases, posição da citação (deveria ser ao final da frase) e contradições continuaram aparecendo, o que era de se esperar já que não é responsabilidade do código atual garantir qualidade nesses quesitos.
-
-Entretanto, o teste cinco apresentou uma piora no respeito ao limite de frases. A mudança do prompt e do contexto podem ter ocasionado isso.
+De forma geral, o limite de três frases, posição da citação (deveria ser ao final da frase) e contradições continuaram aparecendo. Entretanto, o teste cinco apresentou uma piora no respeito ao limite de frases. A mudança do prompt e do contexto podem ter ocasionado isso.
 
 ### Uma falha do meu código que os testes revelaram
 
@@ -66,6 +64,7 @@ Adicionei o trecho abaixo ao final do resolver_citacoes para resolver esse probl
     texto = re.sub(r"\[(\d+(?:\s*,\s*\d+)*)\]", trocar, resposta)
     return re.sub(r"(\(fonte: [^)]*\))(?:\s*\1)+", r"\1", texto)
 ```
+Testei a regex isoladamente em teste_deduplicacao.py: duas citações iguais e vizinhas viram uma, e uma citação igual separada por texto é mantida.
 
 ### Conclusão
 
@@ -74,7 +73,7 @@ Agora as citações estão bem formatadas e sem duplicatas vizinhas, facilitando
 ### Referências
 
 - Branch: `melhoria-citacoes`
-- Pull request: <!-- link -->
+- Pull request: https://github.com/juantlt2811-cell/rag-central-de-ajuda/pull/1
 - Tag: `v2`
 
 ## Próximas melhorias

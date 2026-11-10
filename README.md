@@ -72,14 +72,14 @@ Cada chunk é armazenado com Id, Arquivo de Origem, Título do Documento e o Tex
 
 A fonte é guardada para rastreamento da origem, assim podendo verificar de onde a resposta veio. Ela não participa da busca.
 
-Ao perguntar, o Chroma compara o vetor da pergunta com os vetores guardados, devolve o Id, o Texto, a Fonte e a Distância dos trechos mais próximos. O programa mostra o Id, a Fonte e a Distância no terminal e envia o texto, com a fonte como rótulo, ao phi4-mini.
+Ao perguntar, o Chroma compara o vetor da pergunta com os vetores guardados e devolve o Id, o Texto, a Fonte e a Distância dos trechos mais próximos. O programa mostra o Id, a Fonte e a Distância no terminal. Ao phi4-mini, porém, envia só o texto de cada trecho, numerado como [1], [2] e [3], sem o nome do arquivo. O modelo cita o número do trecho que usou, e o código troca cada número pelo nome real do arquivo, guardado como metadado.
 
 ## 7. Papel de cada componente
 
 - **embeddinggemma:** Responsável por transformar os textos em vetores
 - **Chroma:** Compara os vetores e retorna os mais próximos
 - **phi4-mini:** Llm local responsável por responder as dúvidas baseando-se no que tem nos trechos recuperados
-- **O código (Python):** Define as regras da resposta da llm, a regra da divisão dos chunks e o como usa o banco
+- **O código (Python):** Define as regras da resposta da llm, a regra da divisão dos chunks, o como usa o banco, numera os trechos enviados ao modelo e troca os números citados pelos nomes dos arquivos.
 
 Como modelos de embeddings geram vetores diferentes, utilizar modelos diferentes criariam contextos diferentes e a comparação ficaria errada. 
 
@@ -96,7 +96,7 @@ A pasta `chroma_db` é criada pelo próprio programa a partir de `documentos/`, 
 
 ## 9. Testes e análise dos resultados
 
-Os testes abaixo mostram os resultados da segunda rodada de teste, utilizando o prompt encontrado no código atualmente. 
+Os testes abaixo são os da segunda rodada, feita com o prompt v4, quando o modelo ainda escrevia o nome do arquivo. Os resultados depois da melhoria “citação por número” estão em MELHORIAS.md.
 
 Configuração dos testes: embeddinggemma, `phi4-mini` com `temperature` 0 e `num_predict` 200, 3 trechos recuperados por pergunta, distância de cosseno e "Lembre-se: no máximo 3 frases, só com base nos trechos." em gerar_resposta().
 
@@ -256,5 +256,7 @@ Ao rodar o programa de novo em uma instalação limpa (ZIP extraído, ambiente v
 **Dificuldade encontrada:** 
 Entender como fazer a llm respeitar os limites, responder adequadamente e não ficar mesclando documentos sem necessidade. Não só mudanças no prompt, mas fatores como garantias de limite no código precisam estar favoráveis para que o modelo fique mais preciso.
 
-**Possível melhoria:** 
-O código numera os trechos e manda para o modelo. O modelo, em vez de escrever o nome completo do arquivo (que é longo e ele costuma errar), só cita o número do trecho que usou. Depois, o código troca cada número pelo nome real do arquivo, que ele guardou. Assim o nome nunca depende da cópia do modelo. Isso resolve o problema das citações erradas (_md ou o arquivo.md literal), mas não garante que o modelo cite o trecho certo. A melhoria ainda não foi implementada.
+**Possível melhoria:** O código numera os trechos e manda para o modelo. O modelo, em vez de escrever o nome completo do arquivo (que é longo e ele costuma errar), só cita o número do trecho que usou. Depois, o código troca cada número pelo nome real do arquivo, que ele guardou. Assim o nome nunca depende da cópia do modelo. Isso resolve o problema das citações erradas (_md ou o arquivo.md literal), mas não garante que o modelo cite o trecho certo. Essa melhoria agora foi implementada.
+
+**Melhorias implementadas pós entrega do trabalho:** 
+Para evitar que o README fique extenso demais e mudando constantemente a cada melhoria, optei por desenvolver um documento novo chamado MELHORIAS.md.
